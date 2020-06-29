@@ -1,0 +1,19 @@
+* 타일즈는 레이아웃 템플릿을 정의하는 컴포넌트 입니다.
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+1. tiles library 다운로드
+   http://tiles.apache.org/
+   tiles-api.???.jar, tiles-core.???.jar, tiles-servlet.???.jar
+   tiles-jsp.???.jar, tiles-template.???.jar
+2. http://commons.apache.org에서
+   commons-beanutils.??.jar랑 commons-digester.???.jar랑
+   commons-logging.??.jar를 다운로드해요
+3. http://www.slf4j.org/에서 slf4j-api-1.6.2.jar 파일 다운로드
+4. 관련 라이브러리를 WEB-INF의 lib 폴더에 import 해요
+5. 타일즈 설정을 web.xml내에 해요
+6. 타일즈 설정.xml 파일을 만들어요
+7. layout-template.jsp 파일을 만들어요
+8. layout-template.jsp를 사용하는 jsp를 만들어요

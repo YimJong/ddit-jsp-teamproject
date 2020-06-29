@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>MVCPatternModel2</display-name>
+  <welcome-file-list>
+    <welcome-file>welcome.jsp</welcome-file>
+  </welcome-file-list>
+ 
+  <!-- 
+  	 컨트롤러(C) : 서블릿 베이스의 클라이언트의 요청을 처리하는 프론트 엔드 컨트롤러 디자인 패턴 적용.
+  -->
+  
+  <servlet>
+  	<servlet-name>webController</servlet-name>
+  	<servlet-class>kr.or.ddit.base.controller.WebController</servlet-class>
+  	<load-on-startup>1</load-on-startup> <!-- 확장자 do가 들어오기 전 인스턴스화 -->
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>webController</servlet-name>
+  	<url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 
+  	TilesDispatchServlet
+  
+  	커멘드 컨트롤러 implements IAction {
+  		public String process(request, response) {
+  			// return "/WEB-INF/views/user/main.jsp";       포워딩 처리
+  			return "/user/freeboard/freeboardList.tiles";   포워딩 처리
+  		}	
+  	}
+  	=> "/user/freeboard/freeboardList.tiles"
+  	=> "user/freeboard/freeboardList"로 변환 후 취득
+  	
+  	
+  	TilesServlet
+  		* Tiles 설정파일 : default WEB-INF/titles.xml 존재.
+  		TilesDispatchServlet으로 부터 "user/freeboard/freeboardList" 취득
+  		=> tiles 설정파일(xml)에서 해당 문자열과 일치하는 레이아웃 definition 매핑하고 
+  		   포워드 처리(해당 definition 내 선언된 arrtibute(jsp임)들 대상)
+  		   취득한 문자열과 일치하는 definition을 찾음.
+   -->
+   <servlet>
+   	 <servlet-name>tiles</servlet-name>
+   	 <servlet-class>org.apache.tiles.web.startup.TilesServlet</servlet-class>
+   	 <init-param> <!-- 그 서블릿 안에서만 쓰일 수 있음(tiles 설정파일로 쓸 예정) -->
+   	 	<param-name>org.apache.tiles.impl.BasicTilesContainer.DEFINITIONS_CONFIG</param-name>
+   	 	<param-value>/WEB-INF/views/tiles/tiles-def.xml</param-value>
+   	 </init-param>
+   	 <load-on-startup>2</load-on-startup>  <!-- 서버가 돌자마자 숫자가 작은 애들부터 인스턴스화가 진행됨. -->
+   </servlet>
+   
+   
+   
+   <servlet>
+   	 <servlet-name>tilesDispatch</servlet-name>
+   	 <servlet-class>org.apache.tiles.web.util.TilesDispatchServlet</servlet-class>
+   </servlet>
+   <servlet-mapping>
+   	 <servlet-name>tilesDispatch</servlet-name>
+   	 <url-pattern>*.tiles</url-pattern>
+   </servlet-mapping>
+   
+</web-app>
